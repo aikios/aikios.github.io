@@ -32,7 +32,7 @@ ul {
 
   @font-face {
     font-family: Helvetica_Now;
-    src: url(HelveticaNow.TTF);
+    src: url(HelveticaNow.ttf);
   }
   
   @font-face {
