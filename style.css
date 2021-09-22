@@ -10,7 +10,7 @@
     height: 100%; 
     position:absolute; 
     overflow: hidden;
-    width:200px;
+    width: 200px;
   }
   nav ul li {
     list-style-type: none;
