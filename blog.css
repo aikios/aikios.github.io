@@ -26,9 +26,6 @@ ul {
     color: rgb(7, 31, 61);
     
   }
-  img {
-    border-radius: 30px;
-  }
 
   @font-face {
     font-family: Helvetica_Now;
