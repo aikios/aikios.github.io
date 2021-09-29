@@ -32,7 +32,7 @@
 
   @font-face {
     font-family: MSMINCHO;
-    src: url(MSMINCHO.TTF);
+    src: url(fonts/MSMINCHO.TTF);
   }
   
   div {
