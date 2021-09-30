@@ -155,7 +155,7 @@
             },
             methods: {
                 addItem() {
-                    if (this.newItemName.length > 3 && this.newItemName.length < 15 && this.newItemComment.length > 10 && this.newItemComment.length < 500) {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
                         this.item.push(this.newItemName + " : ");
                         this.item.push(this.newItemComment);
                     }
