@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Käsekuchen</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">Käsekuchen</p>
+
+        <img src="../pictures/kasekuchen.jpg" title="Runny cheesecake" style="width: 448px;height: 218px;">
+
+        <p class=" body"><i>Half-baked thoughts… </i></p>
+
+        <p class="body">Happy New Year! I hope everybody has had a refreshing break. As is tradition, you are probably
+            carrying with you a new set of convictions, to make this year the best yet.
+        </p>
+        <p class="body">Some of us have other traditions as well on New Years. My family likes to watch the TV countdown
+            together, and eat a cheesecake. I have made this cheesecake for the past few years, as it aligns with my
+            baking hobby. This year was pretty much the same: I made a cheesecake.
+        </p>
+        <p class="body">But for the first time (ever), the cheesecake wasn’t done all the way. The center was runny, a
+            fact I was dismayed to discover as I cut it on New Year’s Eve. Thankfully, the situation wasn’t a total
+            loss: only the center was runny, and so we just ate the “shore” around the lake of cream cheese that had
+            formed in the middle. As we ate, I had some thoughts about the half-baked cheesecake, and ultimately, the
+            cause: my half-baked approach.
+        </p>
+        <p class="body">It started a week before New Year’s, when I was reminded of this tradition by my family members.
+            I then set about finding a recipe, but I had no cookbooks (at least none with cheesecake recipes) in the
+            house. I tried to find an innovative or interesting recipe, but all I could come up with a plain old New
+            York style cheesecake, but with a peach swirl on top.
+        </p>
+        <p class="body">On the day of (the day before New Year’s Eve, since I like to let it cool overnight), I was busy
+            watching a movie, and kind of going through the motions in the background. I mixed it up, baked the crust,
+            arranged the hot water bath, and set it to cook.
+        </p>
+        <p class="body">Here’s where the error occurred: when checking to take it out of the oven, I was looking for a
+            “wobble”, or a “jiggle” in the center. I guess my standards for “wobble” were pretty loose, since evidently
+            it was wobbling too much. I still pulled it out of the oven, because I was focused on the movie. It was not
+            until tomorrow that I would discover the treachery of the recipe and the word “wobble”, but you already know
+            that part.
+        </p>
+        <p class="body">
+            I guess the point I am trying to make here is it is important to be “present” in everything you do: going
+            through the motions is not enough. You can’t live your own life in spectator mode, you have to be focused
+            and concentrated on the matter at hand. That, or you just need to pay attention when baking finicky things
+            like cheesecakes. I’ll let you decide what you want to take away.
+        </p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=8", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "8",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>
