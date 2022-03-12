@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Blog Blog Blog Blog Blog</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">blog blog blog blog blog</p>
+        <p class=" body"><i>that's five in case you were wondering (?)</i></p>
+
+        <p class="body">Here I am writing this blog. It is 8:27 PM on Friday night, meaning that I have about 3 and a half 
+            hours to write this thing. But I don’t know what to write about, so I will write about blogging. Blogging is 
+            somewhat fun, otherwise, why would I do it? The answer, for those who don’t feel like thinking, is that because 
+            my grade depends on it. Does this mean that I don’t enjoy blogging? I’ll leave that for you to ponder. </p>
+        <p class="body">Today, I got rejected from the University of Chicago. Why did I get rejected? I don’t know. Maybe 
+            its not my place to know. I catch myself thinking that it is because I did not try that hard on the application. 
+            I only wrote one draft of each essay, and I wrote both essays in the span of approximately 3 hours one evening. 
+            I think about this, and realize that maybe this is just me coping, trying to soften the blow of the rejection. 
+            Then I think: I was not ever enthusiastic about uChicago, not at the start, and not now. But then I think: why 
+            did I apply to a college that I was not enthusiastic about?</p>
+        <p class="body">The other day, I was really enthusiastic about wanting to play Mario Kart. So I bought a copy. Today, 
+            I put it in the Nintendo Switch, and I played two or three Grand Prixs. It was then that I realized that Mario Kart 
+            is not as fun when you are playing it alone. Plus, every 5 seconds I would think about this blog, which was not 
+            being written while I played Mario Kart. So I stopped playing Mario Kart, and started the hourlong dithering process 
+            which is a prerequisite to me writing a blog.</p>
+        <p class="body">As I write this blog, I am listening to Michael Jackson. Is it possible for a human to lean like Michael Jackson 
+            does in the music video for “Smooth Criminal”? Ostensibly, the answer is yes: Michael Jackson make a 45-degree angle with his body 
+            and the floor, so humans, by extension, should be able to perform this feat too. This is strangely (actually it is not very strange 
+            at all) not true: in the video, MJ wore special shoes, which one would imagine were fastened in some manner to the floor. Humans 
+            cannot perform a 45 degree lean -- I invite you with all my heart to prove me wrong --- maybe human advancement is held behind a 
+            locked door, the key to which is a human body making a 45 degree angle. </p>
+        <p class="body">
+            Was Annie OK, having been accosted by a polished felon? MJ does not provide us with a conclusive answer, instead choosing to repeat the question.
+        </p>
+        <p class="body">Now another song, of the “lo-fi” variety, comes on. I am listening to it, but lets say I didn’t. Let’s say I skipped it, 
+            and the one after that, and the one after that, and the one after that, and the one after that, and the one after that (ad nauseam). 
+            I think about a song which I would like to listen to, but I cannot think of any specific song. Eventually I just close out YouTube because 
+            suddenly, I do not want to listen to music. I am reminded of a book we read in freshman year, or maybe it was sophomore year, something about 
+            science but not: in it, a scenario is posed, in which a customer walks past a display of jams. A (presumably scientific) study is conducted, 
+            and customers are more likely to purchase a jar of jam when they are given a limited choice, as opposed to a wide variety of jams to peruse. 
+            People can be paralyzed by something as simple as a (tasteful? you decide) selection of jams.</p>
+        <p class="body">When I’m in the car, I like to listen to the radio. I never feel like turning the radio off, only switching to another station 
+            maybe when the ads come on (this is if I feel like exerting the effort to seek the other station (this was before I discovered how to set preset
+             stations in my (not really mine) car)). Remembering reading about an online radio station, I decide to turn that on, and I feel much more satisfied. 
+             I think there is something about having other people decide for you that just feels a lot more comfortable (the reason is that you don’t have to feel 
+             responsible for what goes wrong).</p>
+        <p class="body">I wish that someone would just tell me which college I am going to, and it could be decided, and I could rest easy, not having to worry about 
+            decisions and such. But this cannot be the way that it works. Why not? The reason is not important. I now notice that the blog has come in a circle. I also notice 
+            that I wrote a significant amount more than what I was aiming to write: the vague number of words that seems like just right for a blog post: somewhere around a page, 
+            a little shorter than an essay, but definitely not a single paragraph. We are beyond that kind of measure, and I am reminded of an em dash—of which I recently learned 
+            the name. But since the blog has come in a circle, it is not so much an em dash as a ○ (this character does not have a name that I am aware of, so we will just refer 
+            to it as the circle). I think now that what I have written is a satisfactory blog: it is of length, and it expresses a complete (my interpretation, maybe yours as well) 
+            narrative: we have presented a series of unrelated things, and tied most of them back together in an interpretation of a (relatively (but not really)) significant 
+            event in my life.</p>
+        <p class="body">I am going to go do something else now.
+            </p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=11", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "11",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>
