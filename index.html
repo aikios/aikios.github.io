@@ -20,38 +20,51 @@
       <div class="rotate">
         <div class="one">
           <!-- webs tilt-->
-          <img class="marquee-content-right" src="test-trimmy.png" />
-          <img class="marquee-content-right" src="test-trimmy.png" />
-          <img class="marquee-content-right" src="test-trimmy.png" />
-          <img class="marquee-content-right" src="test-trimmy.png" />
-          <img class="marquee-content-right" src="test-trimmy.png" />
+          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
+          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
+          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
+          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
+          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
         </div>
         <div class="two">
           <!-- cation -->
-          <img class="marquee-content-left" src="test4.png" />
-          <img class="marquee-content-left" src="test4.png" />
-          <img class="marquee-content-left" src="test4.png" />
-          <img class="marquee-content-left" src="test4.png" />
-          <img class="marquee-content-left" src="test4.png" />
+          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
+          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
+          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
+          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
+          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
         </div>
         <div class="three">
           <!-- achtung bebe -->
-          <img class="marquee-content-left" src="test3.png" />
-          <img class="marquee-content-left" src="test3.png" />
-          <img class="marquee-content-left" src="test3.png" />
-          <img class="marquee-content-left" src="test3.png" />
-          <img class="marquee-content-left" src="test3.png" />
+          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
+          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
+          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
+          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
+          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
         </div>
         <div class="four">
           <!-- webs straight-->
-          <img class="marquee-content-right" src="test2.png" />
-          <img class="marquee-content-right" src="test2.png" />
-          <img class="marquee-content-right" src="test2.png" />
-          <img class="marquee-content-right" src="test2.png" />
-          <img class="marquee-content-right" src="test2.png" />
+          <img class="marquee-content-right2" src="graphics/tape-uncon.png" />
+          <img class="marquee-content-right2" src="graphics/tape-uncon.png" />
+          <img class="marquee-content-right2" src="graphics/tape-uncon.png" />
+          <img class="marquee-content-right2" src="graphics/tape-uncon.png" />
+          <img class="marquee-content-right2" src="graphics/tape-uncon.png" />
         </div>
       </div>
     </body>
+
+    <script>
+      function slowBanners(classname) {
+        var tapes = document.getElementsByClassName(classname);
+        for (var i = 0; i < tapes.length; i++) {
+          tapes.item(i).style.animationDuration = "75s";
+        }
+      }
+      setTimeout(slowBanners, 1000, "marquee-content-right1");
+      setTimeout(slowBanners, 1500, "marquee-content-left1");
+      setTimeout(slowBanners, 1700, "marquee-content-left2");
+      setTimeout(slowBanners, 1900, "marquee-content-right2");
+    </script>
 
     <body>
       <div class="menu">

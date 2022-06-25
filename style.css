@@ -14,7 +14,7 @@
     overflow: hidden;
     font-family: MSMINCHO;
     margin:auto;
-    width: fit-content;
+    width: 20vw;
   }
   nav ul li {
     list-style-type: none;
@@ -56,6 +56,8 @@
     left: 0;
     -ms-transform: rotate(7deg); /* IE 9 */
     -webkit-transform: rotate(7deg); /* Safari */
+    margin: left -10px;
+    margin: right -10px;
   }
   /* caution */
   .rotate .two {
@@ -64,6 +66,7 @@
     -webkit-transform: rotate(-5deg); /* Safari */
     transform: rotate(-5deg);
     left: 0;
+    margin: left -30px;
   }
   /* achtung */
   .rotate .three {
@@ -82,21 +85,39 @@
     left: 0;
     top: 35%;
   }
-  .marquee-content-right {
+  .marquee-content-right1 {
     width: 200vw;
     display: flex;
     list-style: none;
-    animation: scrolling-right 75s linear infinite;
+    animation: scrolling-right 2s linear infinite;
+    animation-duration: 2s;
+    transition: animation-duration 10s;
   }
-  .marquee-content-left {
+  .marquee-content-right2 {
     width: 200vw;
     display: flex;
     list-style: none;
-    animation: scrolling-left 75s linear infinite;
+    animation: scrolling-right 2s linear infinite;
+    animation-duration: 2s;
+    transition: animation-duration 10s;
+  }
+  .marquee-content-left2 {
+    width: 200vw;
+    display: flex;
+    list-style: none;
+    animation: scrolling-left 2s linear infinite;
+    transition: animation-duration 10s;
+  }
+  .marquee-content-left1 {
+    width: 200vw;
+    display: flex;
+    list-style: none;
+    animation: scrolling-left 2s linear infinite;
+    transition: animation-duration 10s;
   }
   .menu{
     position:relative;
     order: 2;
-    top:27%;
-    right:27%
+    top:10vh;
+    right:20%
   }
