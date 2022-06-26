@@ -1,6 +1,18 @@
-  .wrap {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
     display: flex;
     flex-direction: column;
+    width: 100vw;
+    margin: 0;
+    height: fit-content;
+  }
+  .wrap {
+    width: 100vw;
+    overflow:hidden;
+    margin: 0;
   }
   ul {
     text-align: left;
@@ -14,7 +26,6 @@
     overflow: hidden;
     font-family: MSMINCHO;
     margin:auto;
-    width: 20vw;
   }
   nav ul li {
     list-style-type: none;
@@ -43,11 +54,10 @@
     100% { transform: translatex(0); }
   }
   .rotate {
-    position:relative;
+    position: relative;
     order: 2;
-    height: 50%;
-    width: 100%;
-    right: 30%;
+    width: 100vw;
+    right:80%;
   }
   /* cave */
   .rotate .one {
@@ -70,20 +80,18 @@
   }
   /* achtung */
   .rotate .three {
-    position:absolute;
     display: flex;
     -ms-transform: rotate(3deg); /* IE 9 */
     -webkit-transform: rotate(3deg); /* Safari */
     transform: rotate(3deg);
     left: 0;
-    top:290%
   }
   /* under */
   .rotate .four {
-    position:absolute;
     display: flex;
     left: 0;
-    top: 35%;
+    position: relative;
+    z-index: 1000;
   }
   .marquee-content-right1 {
     width: 200vw;
@@ -116,8 +124,7 @@
     transition: animation-duration 10s;
   }
   .menu{
-    position:relative;
+    position: relative;
     order: 2;
-    top:10vh;
-    right:20%
+    left: 10%
   }
