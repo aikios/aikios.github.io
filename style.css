@@ -61,7 +61,8 @@
     right:80%;
     top:5vh;
   }
-  /* cave */
+  @media screen and (max-width: 400px) {
+    /* cave */
   .rotate .one {
     display: flex;
     left: 0;
@@ -90,8 +91,44 @@
     left: 0;
     position: relative;
     z-index: 1000;
+    transform: translateY(-2vh);
+  }
+  }
+  @media screen and (min-width: 401px) {
+    /* cave */
+  .rotate .one {
+    display: flex;
+    left: 0;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari */
+    transform: rotate(7deg) translateY(-2vh);
+  }
+  /* caution */
+  .rotate .two {
+    display: flex;
+    -ms-transform: rotate(-5deg); /* IE 9 */
+    -webkit-transform: rotate(-5deg); /* Safari */
+    transform: rotate(-5deg) translateY(-3vh);
+  }
+  /* achtung */
+  .rotate .three {
+    display: flex;
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Safari */
+    transform: rotate(3deg) translateY(-1vh);
+    left: 0;
+  }
+  /* under */
+  .rotate .four {
+    display: flex;
+    left: 0;
+    z-index: 1000;
+    position: relative;
     transform: translateY(-5vh);
   }
+  }
+  
+  
   .marquee-content-right1 {
     width: 200vw;
     display: flex;
