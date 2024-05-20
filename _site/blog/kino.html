@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Kino</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">Kino</p>
+
+        <img src="../pictures/ogden6.jpg" alt="Classic Cinemas" style="width:400px;height:194px;">
+
+        <p class=" body">How many of you have watched a movie in the past year or so?</p>
+
+        <p class="body">I don’t mean clicking play on Netflix, or Hulu, or some shady site on page 10 of Google.
+            I mean to ask how many of you actually dressed up, bought a ticket, drove to the theater, and went to see a
+            movie?</p>
+        <p class="body">Obviously there’s nothing wrong with watching a movie in the former method. In both cases, you
+            sit
+            and watch whatever you want to watch for an hour or two, then you go back to doing whatever it was that you
+            were
+            doing. There might not even be a difference.
+        </p>
+        <p class="body">Or is there?</p>
+        <p class="body">The word “movie” is an abbreviation of the term “moving picture” (which is essentially what a
+            movie is).
+            Today they are known as motion pictures, and are pretty commonplace. But “movies” when they first came out
+            in the early
+            20th century were a big deal. A night at the theater demanded the same level of decorum and dress as a night
+            at the opera, often being shown in halls of similar decor and structure. Going to a showing was a chance to
+            see
+            and be seen in addition to seeing the movie. Shows were long, drawn out affairs with snacks and
+            intermissions, and
+            people would jump at the chance to go to one.</p>
+        <p class="body">Today, however, we have a much different story. Box office attendance statistics show that
+            moviegoers
+            are a dying breed, as attendance numbers have been steadily declining for a while now. After all, why go to
+            the
+            movies anymore? Why dress up, drive to the theater, pay premiums on popcorn and sugary drinks just to do
+            something
+            you could have just as easily done in your pajamas at home?</p>
+        <p class="body">If you’re expecting an answer from me, I don’t have one. The success of streaming giants like
+            Netflix,
+            Hulu, HBO Max, and Disney +, among others, just goes to show that people would prefer to watch movies at
+            home, just like
+            TV shows. Its more convenient to be able to pause the movie and take a bathroom break, or attend to some
+            other sudden
+            problem. Its more convenient to not have to plan in advance and take 3 hours out of your schedule to. </p>
+        <p class="body">But at the same time, this convenience (in my opinion, of course) is what detracts from the
+            viewing experience.
+            Having your phone next to you prevents full immersion, after all, who can resist the temptation to check it
+            every
+            time the screen glows with a notification? And obviously you cannot experience the movie the same way you
+            can with a massive
+            90-foot screen and booming speakers. Not to mention the reminders sitting in your room and around you that
+            you should probably
+            be working on your homework and/or college essays… </p>
+        <p class="body">Maybe I’m just bitter that Evangelion 3.0+1.0 released exclusively on Amazon Prime instead of
+            having a theatrical run
+            first. But most people cannot deny the superiority of the theater experience when it comes to watching
+            movies. </p>
+        <p class="body">Unfortunately, this does not translate into the necessary numbers. As mentioned earlier, movie
+            theaters have
+            been seeing steadily declining audiences. Theater giants like AMC are heavily bet against; until they
+            aren’t, as evidenced by
+            the miraculous rally earlier this year. Even though stocks rocket up, this doesn’t mean audiences are coming
+            back. The pandemic
+            might simply be the final nail in the coffin for movies.
+        </p>
+        <p class="body">If you didn’t recognize the picture above, its of the marquee from the Ogden 6, a few days
+            before it was
+            torn down. The theater, which was on Ogden, stood where a Costco now stands. I wonder why we need two
+            Costcos in Naperville. But that, in turn, begs the question of why we need more than one movie theater.</p>
+        <p class="body">I don’t mean to tell you to go out there and watch a movie at a theater right now. Movie
+            theaters may just be a thing of the past,
+            much like how traveling carnivals and the circus were. It’s not our place, as the consumers, to decide…</p>
+        <p class="body">Or is it?</p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=1", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "1",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>

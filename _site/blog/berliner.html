@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Berliner</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">Berliner</p>
+        <img src="../pictures/berliner.jpg" title="A Berliner."
+            style="width:50%; height:50%;">
+        <p class=" body"><i>A berliner is a type of donut they eat in Germany (seen above). Where is our newyorker?</i></p>
+        <p class="body">Man! I love donuts. I bet you are also a fan of donuts. Lots of people like donuts. </p>
+        <p class="body">In fact, let’s all go eat donuts instead of writing or reading this blog.  </p>
+        <p class="body">Unfortunately, there are more important things in this world than donuts. Things like my AP Lit grade.
+             Which will be going down if there I don’t have a blog for this week. Let’s split the difference and talk about 
+             donuts.
+            </p>
+        <p class="body">Donuts are not named because they look like nuts (construction) made out of dough, as I was thinking
+             for the majority of my life. Donuts are named the way they are because they look like nuts (like peanuts or walnuts)
+              made out of dough. Do you see the resemblance? I don’t. Some accounts say that doughnuts are named so because they
+               had nuts at the center of them, which, as an explanation, is easier for me to swallow (i think doughnuts with 
+               nut inclusions would be harder to swallow). 
+        </p>
+        <p class="body">This is because donuts were originally more like what we know as doughnut holes today. Small gobs of batter were 
+            fried to a donut-like consistency (what were you expecting?) and so were sold to working people everywhere. These were not 
+            donuts like we know them today (in case the shape did not alert you). They were known as olykoeks, which is Dutch for, you 
+            guessed it, oily cakes.</p>
+        <p class="body">
+            In 1920, an immigrant from Russia by the name of Adolph Levitt decided to sell donuts out of his bakery. However, demand outpaced 
+            supply, and soon he was at risk of property destruction and bodily harm from a donut-starved mob (this part is probably not true, 
+            but there is only so much actual excitement in food history). He created a donut machine, which was so fascinating that many people 
+            came to watch the machine churn out donuts which they would then buy (I think the modern-day analog for this would be going to a 
+            candy factory). 
+             </p>
+        <p class="body">
+            Levitt was making a lot of money by selling donuts, which other people noticed. Donuts began to spread across the country. The rest is history.
+             Today, you can see a Dunkin Donuts every 5 minutes or so (citation needed) if you are driving along any major road. Donuts are a big part of 
+             American life and culture. But why?
+        </p>
+        <p class="body">Let’s take a look at the implications of the donut. You could say that a single donut contains the entire universe. The hole represents
+             nothingness, and the ring represents everythingness. Yin and yang. How do you define the donut? Is the hole the absence of donut, or is the ring 
+             the absence of absence? If you add the donut hole, which is separated from the donut before frying, rather than after, much to the surprise of more 
+             than a few people, the equation becomes too complicated to understand. O God, I could be bounded in a donut and count myself the king of infinite space. 
+        </p>
+        <p class="body">Donuts, as an experience and a form, are universal. They are eaten by the every day blue collar working man, and the white collar elites 
+            sitting high in their skyscrapers.You can buy them 1$ a dozen (maybe not? someone test this out) if you are ok with low quality offerings a la Entenmann, 
+            or you can buy them 40$ a dozen (like I did) if you are seeking a more elevated experience (see Bombobar in Chicago). You can find donuts all over the 
+            world: bombolini,  pączki, beignets, berliners, jalebi, sufganiyot, koeksister, bánh rán --- the list goes on and on and on. Anything, really, can be 
+            made or argued as a donut. Is a Bundt cake a donut? Is a roundabout a donut? Is a bike wheel a donut? Is Apple Park a donut? It’s entirely up to you to decide.</p>
+        <p class="body">All this talk of donuts makes me hungry. Too hungry to keep writing. Send donuts to view the rest of this blog. 
+        </p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=13", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "13",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>

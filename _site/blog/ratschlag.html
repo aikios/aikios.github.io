@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Ratschlag</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">Ratschlag</p>
+
+        <p class=" body">The major takeaway from my penultimate semester of high school, I would say, would be that
+            my life is full of dross. I will spare you the details for the sake of brevity, but I have realized that
+            I am preoccupied with too many different activities and goals, very few of which I actually enjoy doing
+            for the sake of doing. I guess I only realized this when I started ding things which I actually enjoyed:
+            in the contrast to the joy I found in these activities was the castle of drudgery which I had built over
+            the past few years revealed. In this half-hearted dabbling I find that my commitment to each activity
+            grows, squeezing blood from the proverbial stone of my daily schedule. It’s in the shadow of this
+            immense and liberating realization that I have resolved to “drop the dross”, so to say, and fill winter
+            break, the next semester, and hopefully the rest of my life with more gainful pursuits, in the sense of
+            a gain of “joy” and “purpose”. </p>
+
+        <p class="body">Reflecting this, I guess that the last six months changed my perspective on just how much
+            things matter. My takeaway is this: things matter a lot less than I was thinking. I was clinging to these
+            things as anchors in a very turbulent time, and in doing so created deep, imaginary foundations that I then
+            mentally restructured my life around. Maybe it is because I have sent out the college applications that
+            mattered to me, but I find myself questioning the things I have done and the clubs and activities I have
+            taken part in.
+        </p>
+        <p class="body">In a sense, I’m “in too deep” to just quit everything right now. I’ve got many things standing
+            between me and graduation, like AP tests, biliteracy tests, a bunch of tests that I’m probably forgetting
+            about, the Aeneid, De Bello Gallico, a thousand plateaus, probably a bunch of college applications still,
+            and staying afloat through second semester. Nonetheless, I’m going to try my hardest to carve out more time
+            for the things I really enjoy, as well as trying new things, so as to really make the most of these last few
+            months in high school.
+
+        </p>
+        <p class="body">I think a lot of high schoolers feel pressured to be part of everything, and to try and climb
+            these massive mountains (metaphorical, in most cases) because they think that it will help them stand out in
+            the applications pool. I think there are quite a few things wrong with this, having learned from experience.
+            What’s understated, I think, is the importance of finding something you can truly enjoy and immerse yourself
+            in. Enjoying an activity will do wonders for your engagement and growth in that field. It’s hard to make
+            yourself do something, and even if you can muster the force of self-will, you will undoubtedly run into
+            mental and psychological obstacles. This idea can be summed up thusly: if your heart’s not in it, nothing
+            is.
+        </p>
+        <p class="body">My advice, then, for incoming seniors, is simple and widely available (and pithy, I would like
+            to think): “follow your heart”. It is my firm belief that if you start doing things you actually want to do,
+            you will find that the things you dislike will all start to fall away, and you will find yourself living the
+            life you want to live. Sure, it sounds like it came off the back of a Hallmark card. I invite you to give it
+            a try, though, before you give it the proverbial “knock”.
+        </p>
+        <p class="body">There’s an album, by a band called “Killswitch Engage”, entitled “Alive Or Just Breathing”. I
+            have not listened to a single track off of this album, or any other music by the band for that matter. The
+            title of this album, however, is something that I think about every single day. Am I truly “alive”, i.e., am
+            I really living, or am I “just breathing”, just existing, much like a drop of water in the stream of life?
+        </p>
+
+        <p class="body"><i>
+                I think we should all be asking ourselves whether we are truly "alive", or if we are "just breathing"
+                our way through the day-to-day.</i>
+        </p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=7", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "7",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>

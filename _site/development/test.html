@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+
+        $(init);
+
+        function init() {
+            var newPara = document.createElement('p');
+            var newParaText = document.createTextNode("Here's some new text");
+            newPara.appendChild(newParaText);
+            $('#myDiv').prepend(newPara);
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div id="myDiv">
+        <p>Existing paragraph</p>
+    </div>
+</body>
+
+</html>

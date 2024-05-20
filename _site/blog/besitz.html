@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Besitz</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">Besitz</p>
+
+        <img src="../pictures/ericsson.jpg" alt="A Phone You Can Own" style="width:512px;height:384px;">
+
+        <p class=" body">Ever wonder why “My Computer” became “This PC”?</p>
+
+        <p class="body">Just last week, the 13th iPhone was released. Wow! There was and is a strong demand for
+            these gadgets right out of the gate, across the world, where Apple remains one of the top choices for
+            premium
+            handsets. </p>
+        <p class="body">As people rush to finally make the switch, or upgrade from last year’s model, it is interesting
+            to take a look at the device itself, and the implications the newest design has for the future of consumer
+            technology.
+        </p>
+        <p class="body">As many teardown videos will tell you, iPhones are notoriously difficult to repair, but this
+            latest
+            iteration is even more so. It makes it harder to swap components between iphones, and very difficult to open
+            the phone itself to access the internals for repair. It’s pretty obvious why this is the case: Apple (and
+            other phone manufacturers) would rather that you purchase their expensive warranty plans or buy a new phone
+            altogether instead of repairing it yourself. They even go so far as to lobby the government to prevent the
+            passing of “right-to-repair” laws, laws which make them provide schematics and trustworthy parts to
+            independent repair shops and consumers.</p>
+        <p class="body">The point I’m trying to make, then, is that even if you paid for it, there’s a limit to how much
+            you really “own” most things. Of course, what I described earlier isn’t just related to iPhones. Androids
+            and other phones ship with similar repair-deterrent design. It’s difficult to install the latest Windows
+            without
+            a Trusted Platform Module (TPM), something which will in time allow companies to enforce greater control
+            over games
+            and media that you download with DRM (Digital Rights Management software, Riot
+            Vanguard is a great example for the gamers out there).</p>
+        <p class="body">Streaming is also a great example of this. Where once you owned physical copies of movies and
+            music (CDs and DVDs) that you could play whenever and however you wanted, now, the paradigm has shifted
+            to being able to access a much larger catalogue for a monthly fee. Sure, this is more convenient.
+            But you lose access to the entire catalogue once you stop paying. </p>
+        <p class="body">The conclusion, then, to reach, is that you own a lot less than you think. If (and as) trends
+            continue, you will continue to own less and less as time going on.</p>
+        <p class="body">Just some food for thought...</p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=2", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "2",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>

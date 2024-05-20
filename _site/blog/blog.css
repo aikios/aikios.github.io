@@ -1,0 +1,69 @@
+ul {
+    text-align: left;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-self: center;
+    height: 100%; 
+    position:absolute; 
+    overflow: hidden;
+    width:200px;
+  }
+  nav ul li {
+    list-style-type: none;
+    display: inline;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+    vertical-align: middle
+    
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: rgb(7, 31, 61);
+    
+  }
+
+  @font-face {
+    font-family: Helvetica_Now;
+    src: url(../fonts/HelveticaNow.ttf);
+  }
+  
+  @font-face {
+    font-family: Futura_Bold_Italic;
+    src: url(../fonts/fbi.otf);
+  }
+
+  div {
+    font-family: Helvetica_Now;
+
+  }
+
+  .title {
+    font-size: 20pt;
+    font-family: Futura_Bold_Italic;
+  }
+
+  .body {
+    font-size: 10pt;
+    word-wrap: break-word;
+    width: 1000px;
+  }
+
+  .comments {
+    font-size: 10pt;
+    word-wrap: break-word;
+    width: 700px;
+  }
+  .button{
+    font-family: Helvetica_Now;
+    font-size: 10pt;
+  }
+
+  ::placeholder {
+      font-size: 10pt;
+      font-family: Helvetica_Now;
+  }

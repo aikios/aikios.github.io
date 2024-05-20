@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Flugzeugtrager</title>
+    <link href="blog.css" rel="stylesheet" type="text/css" />
+</head>
+<section id="content">
+    <div>
+        <p class="title">Flugzeugtrager des Naperville</p>
+
+        <img src="../pictures/flugzeugtrager.jpg" title="Hans Hollein, Aircraft Carrier City In Landscape, 1964"
+            style="width:500px;height:318px;">
+
+        <p class=" body"><i>Naperville as we (don’t) know it...</i></p>
+
+        <p class="body">If you’re like me and love to eat sweet foods (which you probably do), you might have
+            heard about the imminent opening of Cafe Cebu, which promises to be a fascinating addition to
+            Naperville’s dining scene with its French- and Filipino-inspired treats. </p>
+        <p class="body">Stores don’t just pop up out of nowhere, however… Those that are familiar with the
+            area (Cress Creek Square Shopping Center) will recognize that suite #117, the one that Cafe Cebu is
+            slated to fill, was just recently vacated. There formerly stood Algo Dulce, a Mexican-inspired
+            creamery. I had been meaning to try it out for a year, until suddenly, I realized I couldn’t.
+            As quickly as it had came, it was GONE!</p>
+        <p class="body">To me, it seemed surprising how quickly the shop had disappeared, but on a grander scale,
+            is just another casualty of a trend. What trend? A trend of replacement.</p>
+        <p class="body">The Ship of Theseus, for those not familiar, is a philosophical thought experiment considering
+            identity. Based on a Greek myth, it concerns the titular ship of the titular Theseus, which, after having
+            completed its journey, was preserved by the Athenians. Their preservation did not just consist of
+            keeping it in a museum -- rather, they took the ship’s rotting planks out and replaced them with strong,
+            fresh new ones. This, of course, raised the question: Was it still the same ship?</p>
+
+        <p class="body">In a way, Naperville is just like the Ship of Theseus. Bits and pieces are slowly being
+            replaced, with new ones that are bigger, better, more fancy, or just different. Remember Classic Cinemas
+            on Ogden, where the Costco is now? Or the Forever Yogurt that used to be across from Barnes and Noble?
+            Or what about the old Nichols Library? Is the Naperville of 2021 the same as the Naperville of 2011, or
+            even the Naperville of 2018?
+
+        </p>
+        <p class="body">It seems that Naperville is constantly rebuilding itself, but for what? It’s akin to
+            a militarization, like Naperville is gearing up for battle… but for what?</p>
+        <p class="body">It’s interesting to think about how thought experiments are applicable in daily life. </p>
+        <p class="body">------------------------------------ </p>
+    </div>
+</section>
+
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <input type="text" id="nametextbox" class="input" placeholder="Name (3-15 chars)" v-model="newItemName"
+                minlength=2 maxlength=30></input>
+        </div>
+
+        <div class="row">
+            <textarea type="text" rows="4" cols="50" id="commenttextbox" class="input"
+                placeholder="Write a comment (10-500 chars)" v-model="newItemComment" maxlength=500
+                minlength=10>No Comment.</textarea>
+        </div>
+        <div class="row">
+            <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <p v-for="items in item" v-text="items" class="comments"></p>
+    </div><!-- End row -->
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'> </script>
+    <!--jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(document).ready(async function () {
+            const response = await fetch("https://personalwebsite.mohammadkhan10.repl.co/comments?post=3", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+
+            })
+                .then(response => response.json())
+            console.log(response)
+            //const comments = JSON.parse(response);
+            function commpost(value) {
+                if (value.name.length > 3 && value.name.length < 30 && value.comment.length > 10 && value.comment.length < 500) {
+                    console.log("comment: " + value.name + " : " + value.comment)
+                    window.test.item.push(value.name + " : ")
+                    window.test.item.push(value.comment)
+
+                }
+            }
+            response.forEach(commpost);
+        });
+        $(document).ready(function () {
+            $(".primaryContained").on('click', function () {
+                $(".comment").addClass("commentClicked");
+                fetch("https://personalwebsite.mohammadkhan10.repl.co/comment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        postnumber: "3",
+                        name: document.getElementById('nametextbox').value,
+                        comment: document.getElementById('commenttextbox').value
+                    })
+                });
+
+            });//end click
+        });//End Function
+
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Add a comment',
+                newItemName: '',
+                newItemComment: '',
+                item: [],
+            },
+            mounted: function () {
+                window.test = this;
+            },
+            methods: {
+                addItem() {
+                    if (this.newItemName.length > 3 && this.newItemName.length < 25 && this.newItemComment.length > 10 && this.newItemComment.length < 100) {
+                        this.item.push(this.newItemName + " : ");
+                        this.item.push(this.newItemComment);
+                    }
+                }
+                // loadComments() {
+                //     this.item.push
+                // }
+            }
+        });</script>
+</section>

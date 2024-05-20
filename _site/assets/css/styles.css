@@ -1,0 +1,26 @@
+.title {
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 200%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.subtitle {
+  font-size: 100%;
+  font-family: Helvetica;
+  padding: 0px;
+  margin: 0px;
+}
+
+.headingone {
+  font-size: 150%;
+  font-family: Helvetica;
+}
+
+.paragraph {
+  font-family: Helvetica;
+  padding: 10px;
+}
+
+/*# sourceMappingURL=styles.css.map */

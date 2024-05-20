@@ -1,0 +1,278 @@
+  ul {
+    text-align: left;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-self: center;
+    height: 100%; 
+    position:absolute; 
+    overflow: hidden;
+    width: 200px;
+  }
+  nav ul li {
+    list-style-type: none;
+    display: inline;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+    vertical-align: middle
+    
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: rgb(7, 31, 61);
+    
+  }
+
+  @font-face {
+    font-family: MSMINCHO;
+    src: url(fonts/MSMINCHO.TTF);
+  }
+  
+  div {
+    font-family: MSMINCHO;
+  }
+  div.rotate-container {
+    border: 1px solid blue;
+  }
+
+  
+
+@keyframes scrolling-right {
+    0% { transform: translateX(0); }
+    100% { transform: translatex(-100vw); }
+}
+@keyframes scrolling-left {
+  0% { transform: translateX(-100vw); }
+  100% { transform: translatex(0); }
+}
+.marquee-content-right {
+  width: 150vw;
+  display: flex;
+  list-style: none;
+  animation: scrolling-right 15s linear infinite;
+}
+.marquee-content-left {
+  width: 150vw;
+  display: flex;
+  list-style: none;
+  animation: scrolling-left 15s linear infinite;
+}
+
+@media screen and (max-width: 380px) {
+  /* cave */
+  div.rotate-1 {
+    display: flex;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari */
+    transform: rotate(7deg);
+    position: absolute;
+    left: 0;
+    top: 55vh;
+    border: 1px solid #blue;
+  }
+  /* caution */
+  div.rotate-2 {
+    display: flex;
+    -ms-transform: rotate(-5deg); /* IE 9 */
+    -webkit-transform: rotate(-5deg); /* Safari */
+    transform: rotate(-5deg);
+    position: absolute;
+    left: 0;
+    top: 21vh;
+    border: 1px solid #blue;
+  }
+  /* achtung */
+  div.rotate-3 {
+    display: flex;
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Safari */
+    transform: rotate(3deg);
+    position: absolute;
+    left: 0;
+    top: 45vh;
+    border: 1px solid #blue;
+  }
+  /* under */
+  div.rotate-4 {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 35vh;
+    border: 5px solid #blue;
+  }
+  .marquee-content-right {
+    width: 650px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-right 15s linear infinite;
+  }
+  .marquee-content-left {
+    width: 650px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-left 15s linear infinite;
+  }
+
+}
+
+@media screen and (min-width: 381px) {
+
+  /* cave*/
+  div.rotate-1 {
+    display: flex;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari */
+    transform: rotate(7deg);
+    position: absolute;
+    left: 0;
+    top: 57vh;
+  }
+  /* caution */
+  div.rotate-2 {
+    display: flex;
+    -ms-transform: rotate(-5deg); /* IE 9 */
+    -webkit-transform: rotate(-5deg); /* Safari */
+    transform: rotate(-5deg);
+    position: absolute;
+    left: 0;
+    top: 23vh;
+  }
+  /* achtung */
+  div.rotate-3 {
+    display: flex;
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Safari */
+    transform: rotate(3deg);
+    position: absolute;
+    left: 0;
+    top: 43vh;
+  }
+  /* under */
+  div.rotate-4 {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 37vh;
+  }
+  .marquee-content-right {
+    width: 750px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-right 15s linear infinite;
+  }
+  .marquee-content-left {
+    width: 750px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-left 15s linear infinite;
+  }
+}
+@media screen and (min-width: 801px) {
+
+  /* cave*/
+  div.rotate-1 {
+    display: flex;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari */
+    transform: rotate(7deg);
+    position: absolute;
+    left: 0;
+    top: 55vh;
+  }
+  /* caution */
+  div.rotate-2 {
+    display: flex;
+    -ms-transform: rotate(-5deg); /* IE 9 */
+    -webkit-transform: rotate(-5deg); /* Safari */
+    transform: rotate(-5deg);
+    position: absolute;
+    left: 0;
+    top: 15vh;
+  }
+  /* achtung */
+  div.rotate-3 {
+    display: flex;
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Safari */
+    transform: rotate(3deg);
+    position: absolute;
+    left: 0;
+    top: 45vh;
+  }
+  /* under */
+  div.rotate-4 {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 35vh;
+  }
+  .marquee-content-right {
+    width: 900px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-right 15s linear infinite;
+  }
+  .marquee-content-left {
+    width: 900px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-left 15s linear infinite;
+  }
+}
+
+@media screen and (min-width: 1501px) {
+
+  /* cave*/
+  div.rotate-1 {
+    display: flex;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari */
+    transform: rotate(7deg);
+    position: absolute;
+    left: 0;
+    top: 50vh;
+  }
+  /* caution */
+  div.rotate-2 {
+    display: flex;
+    -ms-transform: rotate(-5deg); /* IE 9 */
+    -webkit-transform: rotate(-5deg); /* Safari */
+    transform: rotate(-5deg);
+    position: absolute;
+    left: 0;
+    top: 20vh;
+  }
+  /* achtung */
+  div.rotate-3 {
+    display: flex;
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Safari */
+    transform: rotate(3deg);
+    position: absolute;
+    left: 0;
+    top: 40vh;
+  }
+  /* under */
+  div.rotate-4 {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 35vh;
+  }
+  .marquee-content-right {
+    width: 900px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-right 15s linear infinite;
+  }
+  .marquee-content-left {
+    width: 900px;
+    display: flex;
+    list-style: none;
+    animation: scrolling-left 15s linear infinite;
+  }
+}
