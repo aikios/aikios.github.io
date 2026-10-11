@@ -7,4 +7,3 @@ function slowBanners(classname) {
 setTimeout(slowBanners, 1000, "marquee-content-right1");
 setTimeout(slowBanners, 1500, "marquee-content-left1");
 setTimeout(slowBanners, 1700, "marquee-content-left2");
-setTimeout(slowBanners, 1900, "marquee-content-right2");

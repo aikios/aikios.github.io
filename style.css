@@ -85,14 +85,6 @@
     transform: rotate(3deg) translateY(-1vh);
     left: 0;
   }
-  /* under */
-  .rotate .four {
-    display: flex;
-    left: 0;
-    position: relative;
-    z-index: 1000;
-    transform: translateY(-2vh);
-  }
   }
   @media screen and (min-width: 401px) {
     /* cave */
@@ -118,26 +110,10 @@
     transform: rotate(3deg) translateY(-1vh);
     left: 0;
   }
-  /* under */
-  .rotate .four {
-    display: flex;
-    left: 0;
-    z-index: 1000;
-    position: relative;
-    transform: translateY(-5vh);
-  }
   }
   
   
   .marquee-content-right1 {
-    width: 200vw;
-    display: flex;
-    list-style: none;
-    animation: scrolling-right 2s linear infinite;
-    animation-duration: 2s;
-    transition: animation-duration 10s;
-  }
-  .marquee-content-right2 {
     width: 200vw;
     display: flex;
     list-style: none;
