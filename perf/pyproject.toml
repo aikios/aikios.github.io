@@ -1,0 +1,6 @@
+[project]
+name = "site-perf"
+version = "0.1.0"
+description = "Headless Chromium load/runtime benchmark for the landing page"
+requires-python = ">=3.10"
+dependencies = ["playwright==1.63.0"]
