@@ -48,40 +48,25 @@
     src: url(fonts/MSMINCHO-latin.woff2) format("woff2");
   }
 
-  /* Tape field (built by script.js). The mask is the full screen minus a
-     rectangle around the menu; script.js sets the --hole-* variables. */
+  /* Tape field (built by script.js), drawn behind the menu. */
   .tapes {
     position: fixed;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
-    --hole-x: 0px; --hole-y: 0px; --hole-w: 0px; --hole-h: 0px;
-    -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
-            mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
-    -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-    -webkit-mask-size: 100% 100%, var(--hole-w) var(--hole-h);
-            mask-size: 100% 100%, var(--hole-w) var(--hole-h);
-    -webkit-mask-position: 0 0, var(--hole-x) var(--hole-y);
-            mask-position: 0 0, var(--hole-x) var(--hole-y);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
   }
   .tape {
     position: absolute;
     overflow: hidden;
   }
   .track {
-    display: flex;
-    width: max-content;
+    height: 100%;
+    background-repeat: repeat-x;
+    will-change: transform;
     animation: tape-scroll linear infinite;
   }
   .track.reverse {
     animation-direction: reverse;
-  }
-  .track img {
-    display: block;
-    flex: none;
   }
   @keyframes tape-scroll {
     from { transform: translateX(0); }
