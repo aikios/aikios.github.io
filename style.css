@@ -60,12 +60,20 @@
     overflow: hidden;
   }
   .track {
+    position: absolute;
+    inset: 0;
+  }
+  .seg {
+    position: absolute;
+    top: 0;
     height: 100%;
+    background-image: inherit;
+    background-size: inherit;
     background-repeat: repeat-x;
     will-change: transform;
-    animation: tape-scroll linear infinite;
+    animation: tape-scroll var(--dur) linear var(--delay) infinite;
   }
-  .track.reverse {
+  .track.reverse .seg {
     animation-direction: reverse;
   }
   @keyframes tape-scroll {
@@ -73,7 +81,7 @@
     to { transform: translateX(var(--shift)); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .track { animation-play-state: paused; }
+    .seg { animation-play-state: paused; }
   }
 
   .menu {

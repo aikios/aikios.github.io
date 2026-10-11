@@ -19,6 +19,7 @@ const MIN_HEIGHT_PX = 28;
 const SPEED_PX_S = [60, 160];   // scroll speed range
 const HOLE_PADDING_PX = 20;     // minimum clear space between tape and menu text
 const HUG_JITTER_PX = 30;       // how far past the padding a frame tape may sit
+const MAX_SEGMENT_DEVICE_PX = 1024;  // longest moving piece; see makeTape
 
 // One repeat of each tape ("CAUTION ▲▼▲"), cropped by perf/make_tiles.py.
 // Sizes are the PNGs' pixel dimensions, so widths are known before load.
@@ -70,13 +71,24 @@ function makeTape(rand, tile, h, g, s, hole, vw, vh) {
                       `transform:translate(-50%,-50%) rotate(${angleDeg}deg)`;
 
   // A strip one tile longer than the tape, shifted by exactly one tile per
-  // loop, so the seam never shows.
+  // loop, so the seam never shows. The strip is built from short segments that
+  // all move in sync: WebKit splits any long moving layer into tiles and
+  // sometimes shows one before drawing it (a blank flash), so each segment is
+  // kept to at most MAX_SEGMENT_DEVICE_PX and drawn whole. Segments overlap by
+  // 1px so no hairline shows between them.
+  const k = Math.ceil(tileW * window.devicePixelRatio / MAX_SEGMENT_DEVICE_PX);
+  const segW = tileW / k;
   const track = document.createElement("div");
   track.className = "track" + (rand() < 0.5 ? " reverse" : "");
-  track.style.cssText = `width:${(Math.ceil(len / tileW) + 1) * tileW}px;` +
-                        `background-image:url(${tile.src});background-size:${tileW}px ${h}px;` +
-                        `--shift:${-tileW}px;animation-duration:${tileW / speed}s;` +
-                        `animation-delay:${-rand() * 20}s`;
+  track.style.cssText = `background-image:url(${tile.src});background-size:${tileW}px ${h}px;` +
+                        `--shift:${-tileW}px;--dur:${tileW / speed}s;--delay:${-rand() * 20}s`;
+  const segments = Math.ceil(len / segW) + k;
+  for (let i = 0; i < segments; i++) {
+    const seg = document.createElement("div");
+    seg.className = "seg";
+    seg.style.cssText = `left:${i * segW}px;width:${segW + 1}px;background-position-x:${-i * segW}px`;
+    track.append(seg);
+  }
   row.append(track);
   return row;
 }
@@ -142,5 +154,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     pending = setTimeout(() => buildTapes(field), 150);
   };
   window.addEventListener("resize", relayout);
-  new ResizeObserver(relayout).observe(document.querySelector(".menu ul"));
+  // ResizeObserver also reports once on observe(); only act on real changes.
+  const menu = document.querySelector(".menu ul");
+  let menuSize = `${menu.offsetWidth}x${menu.offsetHeight}`;
+  new ResizeObserver(() => {
+    const size = `${menu.offsetWidth}x${menu.offsetHeight}`;
+    if (size !== menuSize) { menuSize = size; relayout(); }
+  }).observe(menu);
 });
