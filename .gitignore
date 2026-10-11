@@ -6,3 +6,6 @@ _site/
 .jekyll-cache/
 .sass-cache/
 .jekyll-metadata
+
+# Local agent instructions (keep private)
+CLAUDE.md
