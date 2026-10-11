@@ -15,3 +15,5 @@ perf/variants/
 perf/results.jsonl
 perf/.venv/
 perf/shots/
+perf/__pycache__/
+SPEC.md

@@ -21,13 +21,42 @@ const HOLE_PADDING_PX = 20;     // minimum clear space between tape and menu tex
 const HUG_JITTER_PX = 30;       // how far past the padding a frame tape may sit
 const MAX_SEGMENT_DEVICE_PX = 1024;  // longest moving piece; see makeTape
 
-// One repeat of each tape ("CAUTION ▲▼▲"), cropped by perf/make_tiles.py.
-// Sizes are the PNGs' pixel dimensions, so widths are known before load.
+// One repeat of each tape ("CAUTION ▲▼▲"), cropped by perf/make_tiles.py at
+// several heights: graphics/tile-<name>-<height>.png. w x h is the full-size
+// tile; the smaller copies keep its proportions. The page loads the smallest
+// height that is still sharp on this screen, so a phone or a 1x monitor never
+// decodes, and holds in memory, more image than it can show.
+const TILE_HEIGHTS = [58, 87, 116, 174];  // plus each tile's full height
 const TILES = [
-  { src: "graphics/tile-cave.png", w: 2541, h: 232 },
-  { src: "graphics/tile-achtung.png", w: 2702, h: 233 },
-  { src: "graphics/tile-caution.png", w: 2702, h: 232 },
+  { name: "cave", w: 2541, h: 232 },
+  { name: "achtung", w: 2702, h: 233 },
+  { name: "caution", w: 2702, h: 232 },
 ];
+
+// Tape thickness in CSS px before the per-tape 0.8-1.2x variation.
+const baseHeight = (vw) => Math.max(MIN_HEIGHT_PX, (HEIGHT_VW / 100) * vw);
+
+// Smallest tile height that covers the thickest tape in device pixels.
+function tileHeight(tile) {
+  const need = baseHeight(window.innerWidth) * 1.2 * window.devicePixelRatio;  // 1.2 = pickHeight max
+  return TILE_HEIGHTS.find((h) => h >= need) ?? tile.h;
+}
+const tileSrc = (tile) => `graphics/tile-${tile.name}-${tileHeight(tile)}.png`;
+
+// Decode tiles before showing any tape, so tapes don't pop in one by one.
+// Cached per URL, so a resize that keeps the same height doesn't reload.
+const decoded = new Map();
+function tilesReady() {
+  return Promise.all(TILES.map((tile) => {
+    const src = tileSrc(tile);
+    if (!decoded.has(src)) {
+      const img = new Image();
+      img.src = src;
+      decoded.set(src, img.decode().catch(() => {}));
+    }
+    return decoded.get(src);
+  }));
+}
 
 function mulberry32(a) {
   return function () {
@@ -56,11 +85,20 @@ function bandLimits(angle, h, hole, vw, vh) {
 }
 
 function makeTape(rand, tile, h, g, s, hole, vw, vh) {
-  // Centre the tape on the point of its line nearest the screen centre, so a
-  // length of one diagonal (plus a margin) always spans the whole screen.
+  // Make the tape just long enough to cross the screen: clip its centre line
+  // to the screen grown by h on every side (so the square-cut ends stay off
+  // screen) and centre it on that stretch. Tape that would sit off screen
+  // still costs graphics memory, so a tape cutting across a corner is short.
   const px = hole.cx + g.nx * s, py = hole.cy + g.ny * s;
-  const along = (vw / 2 - px) * g.dx + (vh / 2 - py) * g.dy;
-  const len = Math.hypot(vw, vh) + 2 * h;
+  let t0 = -Infinity, t1 = Infinity;
+  for (const [p, d, max] of [[px, g.dx, vw], [py, g.dy, vh]]) {
+    if (Math.abs(d) < 1e-9) continue;  // parallel to these edges; the other pair bounds it
+    const a = (-h - p) / d, b = (max + h - p) / d;
+    t0 = Math.max(t0, Math.min(a, b));
+    t1 = Math.min(t1, Math.max(a, b));
+  }
+  const along = (t0 + t1) / 2;
+  const len = t1 - t0;
   const tileW = h * tile.w / tile.h;
   const speed = SPEED_PX_S[0] + rand() * (SPEED_PX_S[1] - SPEED_PX_S[0]);
   const angleDeg = Math.atan2(g.dy, g.dx) * 180 / Math.PI;
@@ -80,7 +118,7 @@ function makeTape(rand, tile, h, g, s, hole, vw, vh) {
   const segW = tileW / k;
   const track = document.createElement("div");
   track.className = "track" + (rand() < 0.5 ? " reverse" : "");
-  track.style.cssText = `background-image:url(${tile.src});background-size:${tileW}px ${h}px;` +
+  track.style.cssText = `background-image:url(${tileSrc(tile)});background-size:${tileW}px ${h}px;` +
                         `--shift:${-tileW}px;--dur:${tileW / speed}s;--delay:${-rand() * 20}s`;
   const segments = Math.ceil(len / segW) + k;
   for (let i = 0; i < segments; i++) {
@@ -97,7 +135,7 @@ function buildTapes(field) {
   const rand = mulberry32(SEED);
   const vw = window.innerWidth, vh = window.innerHeight;
   const count = Math.max(MIN_TAPES, Math.round((vw * vh / 1e6) * TAPES_PER_MEGAPIXEL));
-  const baseH = Math.max(MIN_HEIGHT_PX, (HEIGHT_VW / 100) * vw);
+  const baseH = baseHeight(vw);
   const maxAngle = MAX_ANGLE_DEG * Math.PI / 180;
   const hole = holeBox();
   const frag = document.createDocumentFragment();
@@ -134,24 +172,20 @@ function buildTapes(field) {
   field.replaceChildren(frag);
 }
 
-// Decode all tiles before showing any tape, so tapes don't pop in one by one.
-const tilesReady = Promise.all(TILES.map(({ src }) => {
-  const img = new Image();
-  img.src = src;
-  return img.decode().catch(() => {});
-}));
+// Start fetching right away, in parallel with the font.
+tilesReady();
 
 document.addEventListener("DOMContentLoaded", async () => {
   const field = document.querySelector(".tapes");
   // The menu's size depends on the web font. document.fonts.ready alone can
   // resolve before the font has even been requested, so ask for it directly.
-  await Promise.all([tilesReady, document.fonts.load("1em MSMINCHO").catch(() => {})]);
+  await Promise.all([tilesReady(), document.fonts.load("1em MSMINCHO").catch(() => {})]);
   buildTapes(field);
   // Re-lay the tapes whenever the window or the menu changes size.
   let pending;
   const relayout = () => {
     clearTimeout(pending);
-    pending = setTimeout(() => buildTapes(field), 150);
+    pending = setTimeout(() => tilesReady().then(() => buildTapes(field)), 150);
   };
   window.addEventListener("resize", relayout);
   // ResizeObserver also reports once on observe(); only act on real changes.
