@@ -43,7 +43,9 @@
 
   @font-face {
     font-family: MSMINCHO;
-    src: url(fonts/MSMINCHO.TTF);
+    /* Latin-only subset of fonts/MSMINCHO.TTF (U+0020-007E). Regenerate with:
+       uvx --from 'fonttools[woff]' pyftsubset fonts/MSMINCHO.TTF --unicodes=U+0020-007E --flavor=woff2 --output-file=fonts/MSMINCHO-latin.woff2 */
+    src: url(fonts/MSMINCHO-latin.woff2) format("woff2");
   }
 
   @keyframes scrolling-right {
