@@ -7,36 +7,12 @@
     <link rel="preload" href="fonts/MSMINCHO-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/x-icon" href="pictures/favicon.ico" />
+    <script src="script.js" defer></script>
   </head>
-  <script src="script.js"></script>
   <body>
-  <div class="wrap">
-      <div class="rotate">
-        <div class="one">
-          <!-- webs tilt-->
-          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
-          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
-          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
-          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
-          <img class="marquee-content-right1" src="graphics/tape-cave.png" />
-        </div>
-        <div class="three">
-          <!-- achtung bebe -->
-          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
-          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
-          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
-          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
-          <img class="marquee-content-left2" src="graphics/tape-achtung.png" />
-        </div>
-        <div class="two">
-          <!-- cation -->
-          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
-          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
-          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
-          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
-          <img class="marquee-content-left1" src="graphics/tape-caution.png" />
-        </div>
-      </div>
+    <div class="wrap">
+      <!-- filled with tapes by script.js -->
+      <div class="tapes" aria-hidden="true"></div>
       <div class="menu">
         <nav>
           <ul>
@@ -62,7 +38,7 @@
               <a href="mailto:mohammmmmadkhan@gmail.com" target="_blank"> Contact </a>
             </li>
             <li><a href="resume.pdf" target="_blank"> Resume </a></li>
-            <!-- 
+            <!--
             <li>---------</li>
             <li><a href="blog.html" target="_blank"> Blog </a></li>
             <li>---------</li>

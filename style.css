@@ -48,98 +48,52 @@
     src: url(fonts/MSMINCHO-latin.woff2) format("woff2");
   }
 
-  @keyframes scrolling-right {
-      0% { transform: translateX(0); }
-      100% { transform: translatex(-800vw); }
+  /* Tape field (built by script.js). The mask is the full screen minus a
+     rectangle around the menu; script.js sets the --hole-* variables. */
+  .tapes {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    --hole-x: 0px; --hole-y: 0px; --hole-w: 0px; --hole-h: 0px;
+    -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+            mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%, var(--hole-w) var(--hole-h);
+            mask-size: 100% 100%, var(--hole-w) var(--hole-h);
+    -webkit-mask-position: 0 0, var(--hole-x) var(--hole-y);
+            mask-position: 0 0, var(--hole-x) var(--hole-y);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
   }
-  @keyframes scrolling-left {
-    0% { transform: translateX(-800vw); }
-    100% { transform: translatex(0); }
+  .tape {
+    position: absolute;
+    overflow: hidden;
   }
-  .rotate {
-    position: relative;
-    order: 2;
-    width: 100%;
-    right:80%;
-    top:5vh;
-  }
-  @media screen and (max-width: 400px) {
-    /* cave */
-  .rotate .one {
+  .track {
     display: flex;
-    left: 0;
-    -ms-transform: rotate(7deg); /* IE 9 */
-    -webkit-transform: rotate(7deg); /* Safari */
-    transform: rotate(7deg) translateY(-2vh);
+    width: max-content;
+    animation: tape-scroll linear infinite;
   }
-  /* caution */
-  .rotate .two {
-    display: flex;
-    -ms-transform: rotate(-5deg); /* IE 9 */
-    -webkit-transform: rotate(-5deg); /* Safari */
-    transform: rotate(-5deg) translateY(-3vh);
+  .track.reverse {
+    animation-direction: reverse;
   }
-  /* achtung */
-  .rotate .three {
-    display: flex;
-    -ms-transform: rotate(3deg); /* IE 9 */
-    -webkit-transform: rotate(3deg); /* Safari */
-    transform: rotate(3deg) translateY(-1vh);
-    left: 0;
+  .track img {
+    display: block;
+    flex: none;
   }
+  @keyframes tape-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(var(--shift)); }
   }
-  @media screen and (min-width: 401px) {
-    /* cave */
-  .rotate .one {
-    display: flex;
-    left: 0;
-    -ms-transform: rotate(7deg); /* IE 9 */
-    -webkit-transform: rotate(7deg); /* Safari */
-    transform: rotate(7deg) translateY(-2vh);
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation-play-state: paused; }
   }
-  /* caution */
-  .rotate .two {
-    display: flex;
-    -ms-transform: rotate(-5deg); /* IE 9 */
-    -webkit-transform: rotate(-5deg); /* Safari */
-    transform: rotate(-5deg) translateY(-3vh);
-  }
-  /* achtung */
-  .rotate .three {
-    display: flex;
-    -ms-transform: rotate(3deg); /* IE 9 */
-    -webkit-transform: rotate(3deg); /* Safari */
-    transform: rotate(3deg) translateY(-1vh);
-    left: 0;
-  }
-  }
-  
-  
-  .marquee-content-right1 {
-    width: 200vw;
-    display: flex;
-    list-style: none;
-    animation: scrolling-right 2s linear infinite;
-    animation-duration: 2s;
-    transition: animation-duration 10s;
-  }
-  .marquee-content-left2 {
-    width: 200vw;
-    display: flex;
-    list-style: none;
-    animation: scrolling-left 2s linear infinite;
-    transition: animation-duration 10s;
-  }
-  .marquee-content-left1 {
-    width: 200vw;
-    display: flex;
-    list-style: none;
-    animation: scrolling-left 2s linear infinite;
-    transition: animation-duration 10s;
-  }
-  .menu{
-    position: relative;
-    order: 2;
+
+  .menu {
+    position: absolute;
+    z-index: 1;
     left: 10%;
-    top: 5vh;
+    top: 25vh;
   }
