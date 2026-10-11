@@ -8,6 +8,7 @@ Jekyll build in `_config.yml`.
 |---|---|
 | `serve.py` | Preview server with caching off, so a plain reload shows your latest edits |
 | `check.py` | Chromium + WebKit, desktop + phone: JS errors, tapes built and moving, no tape inside the menu's clear zone; saves screenshots to `perf/shots/` |
+| `flicker.py` | Records Chromium + WebKit video and flags frames where tapes go blank (`--dpr 2` for Retina, `--seconds 20` for a longer sample) |
 | `bench.py` + `make_variants.sh` | Load and runtime benchmark, comparing git refs and your edits |
 | `make_tiles.py` | Crops each `graphics/tape-*.png` to one repeat as `graphics/tile-*.png` |
 

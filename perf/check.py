@@ -61,11 +61,13 @@ def check(browser: Browser, url: str, viewport: ViewportSize, dpr: float, shot: 
     page.goto(url, wait_until="load")
     page.wait_for_function("document.querySelectorAll('.tape').length > 0", timeout=10000)
 
+    # Moving = an animated segment's transform changes, and it is still the same
+    # element (a rebuild would swap it out and fake a change).
     moving = page.evaluate("""async () => {
-      const t = document.querySelector('.track');
+      const t = document.querySelector('.seg');
       const a = getComputedStyle(t).transform;
       await new Promise(r => setTimeout(r, 300));
-      return a !== getComputedStyle(t).transform;
+      return t.isConnected && a !== 'none' && a !== getComputedStyle(t).transform;
     }""")
     tapes = page.evaluate("document.querySelectorAll('.tape').length")
     box = page.evaluate("(() => { const r = document.querySelector('.menu ul').getBoundingClientRect();"
