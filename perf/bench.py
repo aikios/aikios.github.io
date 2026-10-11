@@ -115,14 +115,15 @@ def run_once(browser, url: str, profile: dict) -> dict:
 
     page.add_init_script(LCP_OBSERVER)
     page.goto(url, wait_until="load")
+    page.evaluate("document.fonts.ready")
+    time.sleep(SETTLE_S)
+    # Read paint timings after settling: a fast page fires load before its
+    # first paint, so reading at load can find no paint entry yet.
     load = page.evaluate("""() => {
       const n = performance.getEntriesByType('navigation')[0];
       const fcp = performance.getEntriesByName('first-contentful-paint')[0];
-      return {load_ms: n.loadEventStart, fcp_ms: fcp ? fcp.startTime : null};
+      return {load_ms: n.loadEventStart, fcp_ms: fcp ? fcp.startTime : null, lcp_ms: window.__lcp};
     }""")
-    page.evaluate("document.fonts.ready")
-    time.sleep(SETTLE_S)
-    load["lcp_ms"] = page.evaluate("window.__lcp")
     load["bytes"] = bytes_in[0]
 
     layers: list[list[dict]] = []
@@ -168,7 +169,8 @@ def main() -> None:
                 with open(RESULTS, "a") as f:
                     f.writelines(json.dumps({"ts": time.time(), "variant": variant.name, "profile": pname, **r}) + "\n"
                                  for r in runs)
-                med = {k: statistics.median(r[k] for r in runs if r[k] is not None) for k in runs[0]}
+                vals = {k: [r[k] for r in runs if r[k] is not None] for k in runs[0]}
+                med = {k: statistics.median(v) if v else float("nan") for k, v in vals.items()}
                 rows.append((variant.name, pname, med))
             srv.shutdown()
         browser.close()
