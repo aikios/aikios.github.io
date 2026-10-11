@@ -28,10 +28,14 @@ const MAX_SEGMENT_DEVICE_PX = 1024;  // longest moving piece; see makeTape
 // decodes, and holds in memory, more image than it can show.
 const TILE_HEIGHTS = [58, 87, 116, 174];  // plus each tile's full height
 const TILES = [
-  { name: "cave", w: 2541, h: 232 },
-  { name: "achtung", w: 2702, h: 233 },
-  { name: "caution", w: 2702, h: 232 },
+  { name: "cave", w: 2541, h: 197 },
+  { name: "achtung", w: 2702, h: 196 },
+  { name: "caution", w: 2702, h: 198 },
 ];
+// Which tapes are actually laid. cave/achtung tiles stay on disk; add their
+// names back here to bring them into the field again.
+const ACTIVE_NAMES = ["caution"];
+const ACTIVE_TILES = TILES.filter((t) => ACTIVE_NAMES.includes(t.name));
 
 // Tape thickness in CSS px before the per-tape 0.8-1.2x variation.
 const baseHeight = (vw) => Math.max(MIN_HEIGHT_PX, (HEIGHT_VW / 100) * vw);
@@ -47,7 +51,7 @@ const tileSrc = (tile) => `graphics/tile-${tile.name}-${tileHeight(tile)}.png`;
 // Cached per URL, so a resize that keeps the same height doesn't reload.
 const decoded = new Map();
 function tilesReady() {
-  return Promise.all(TILES.map((tile) => {
+  return Promise.all(ACTIVE_TILES.map((tile) => {
     const src = tileSrc(tile);
     if (!decoded.has(src)) {
       const img = new Image();
@@ -139,7 +143,7 @@ function buildTapes(field) {
   const maxAngle = MAX_ANGLE_DEG * Math.PI / 180;
   const hole = holeBox();
   const frag = document.createDocumentFragment();
-  const pickTile = () => TILES[Math.floor(rand() * TILES.length)];
+  const pickTile = () => ACTIVE_TILES[Math.floor(rand() * ACTIVE_TILES.length)];
   const pickHeight = () => baseH * (0.8 + rand() * 0.4);
 
   // 1. Frame: spread the tapes' outward normals evenly around the circle, so
